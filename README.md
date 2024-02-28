@@ -146,4 +146,28 @@ Certainly! Below is the documentation for the API to get all chats with paginati
 
 ---
 
+## Challange to sort chats correctly
+
+When a new message arrives for a chat that is not yet in the current chat list, and later you call for page 2 of chats, it indeed poses a challenge in managing the chat list effectively. Here's how you can handle this scenario:
+
+1. **Dynamic Chat List Maintenance**:
+   - As new messages arrive, maintain a dynamic list of chats that includes both chats already present in the list and chats that are newly discovered.
+
+2. **Merge Chats from Different Pages**:
+   - When fetching chats from different pages (e.g., page 1 and page 2), merge the chat lists together, ensuring that there are no duplicate chats.
+   - Check if the newly discovered chat already exists in the chat list. If not, add it to the list.
+
+3. **Sorting Mechanism**:
+   - After merging the chat lists, apply the sorting mechanism to sort the chats based on the timestamps of the last messages, with the chats having the newest messages appearing at the top.
+
+4. **Insertion of New Chats**:
+   - If a chat is discovered while fetching page 2 of chats, and it contains new messages, dynamically insert the chat into the list at the appropriate position based on the message timestamp.
+   - Ensure that the newly discovered chat is positioned correctly relative to existing chats based on the message timestamp.
+
+5. **Chat Position Adjustment**:
+   - As new messages arrive for chats already in the chat list, update the chat's metadata (last message ID, timestamp), and reposition the chat in the list according to the new message timestamp.
+   - This ensures that chats are ordered based on the activity level, with chats having the newest messages appearing at the top of the list.
+
+By implementing these strategies, you can maintain a dynamic chat list that adjusts itself based on real-time updates and fetched chat pages. This allows users to seamlessly navigate through chats and stay up-to-date with the latest conversations, regardless of whether the chats are already present in the current chat list or are newly discovered during pagination.
+
 These APIs allow fetching all chats with pagination, including the last message for each chat, as well as fetching all messages for a single chat with pagination. They provide structured documentation for developers to understand the endpoints, request parameters, response structure, and example responses.

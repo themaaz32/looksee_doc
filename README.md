@@ -40,7 +40,7 @@ Certainly! Below is the documentation for the API to get all chats with paginati
 | `message`      | string   | Content of the last message.                   |
 | `timestamp`    | DateTime | Timestamp indicating when the last message was sent. |
 
-```json
+```
 {
   "success": true,
   "chats": [
@@ -61,7 +61,11 @@ Certainly! Below is the documentation for the API to get all chats with paginati
           "id": 789,
           "name": "User B"
         }
-      ]
+      ],
+      "metadata": {
+        "unread_count": 2,
+        "pinned": false
+      }
     },
     {
       "id": 2,
@@ -80,7 +84,11 @@ Certainly! Below is the documentation for the API to get all chats with paginati
           "id": 789,
           "name": "User B"
         }
-      ]
+      ],
+      "metadata": {
+        "unread_count": 0,
+        "pinned": true
+      }
     }
   ]
 }

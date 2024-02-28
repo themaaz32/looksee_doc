@@ -146,6 +146,90 @@ Certainly! Below is the documentation for the API to get all chats with paginati
 
 ---
 
+## Required Models
+
+Certainly! Here are the required Dart models for implementing the dynamic chat list with metadata and handling new messages:
+
+```dart
+// Chat model
+class Chat {
+  final int id;
+  final List<String> participants;
+  final int lastMessageId;
+  final DateTime lastMessageTimestamp;
+  final int unreadCount;
+
+  Chat({
+    required this.id,
+    required this.participants,
+    required this.lastMessageId,
+    required this.lastMessageTimestamp,
+    required this.unreadCount,
+  });
+
+  factory Chat.fromJson(Map<String, dynamic> json) {
+    return Chat(
+      id: json['chat_id'],
+      participants: List<String>.from(json['participants']),
+      lastMessageId: json['last_message_id'],
+      lastMessageTimestamp: DateTime.parse(json['last_message_timestamp']),
+      unreadCount: json['unread_count'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'chat_id': id,
+      'participants': participants,
+      'last_message_id': lastMessageId,
+      'last_message_timestamp': lastMessageTimestamp.toIso8601String(),
+      'unread_count': unreadCount,
+    };
+  }
+}
+
+// Message model
+class Message {
+  final int id;
+  final int chatId;
+  final int senderId;
+  final String message;
+  final DateTime timestamp;
+
+  Message({
+    required this.id,
+    required this.chatId,
+    required this.senderId,
+    required this.message,
+    required this.timestamp,
+  });
+
+  factory Message.fromJson(Map<String, dynamic> json) {
+    return Message(
+      id: json['id'],
+      chatId: json['chat_id'],
+      senderId: json['sender_id'],
+      message: json['message'],
+      timestamp: DateTime.parse(json['timestamp']),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'chat_id': chatId,
+      'sender_id': senderId,
+      'message': message,
+      'timestamp': timestamp.toIso8601String(),
+    };
+  }
+}
+```
+
+These models define the structure of Chat and Message objects in Dart. The `Chat` model includes metadata such as chat ID, participants, last message ID, last message timestamp, and unread message count. The `Message` model represents individual messages within a chat, including message ID, chat ID, sender ID, message content, and timestamp.
+
+You can use these models to parse JSON data received from API responses and to serialize data when making API requests. Additionally, you can extend these models as needed to accommodate any additional attributes or functionalities required for your chat application.
+
 ## Challange to sort chats correctly
 
 When a new message arrives for a chat that is not yet in the current chat list, and later you call for page 2 of chats, it indeed poses a challenge in managing the chat list effectively. Here's how you can handle this scenario:
